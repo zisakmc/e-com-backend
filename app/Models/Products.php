@@ -35,6 +35,9 @@ class Products extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public function images(){
+        return $this->hasMany(ProductImages::class);
+    }
 
     /*
     |--------------------------------------------------------------------------

@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ProductsRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Backpack\CRUD\app\Library\CrudPanel\CrudField;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use GuzzleHttp\Psr7\Request;
+
+use function PHPSTORM_META\type;
 
 /**
  * Class ProductsCrudController
@@ -49,7 +53,8 @@ class ProductsCrudController extends CrudController
         CRUD::column('name')->type('string');
         CRUD::column('description')->type('string');
         CRUD::column('price')->type('number')->prefix('$');
-        CRUD::column('created_at');
+        CRUD::column('image_path')->type('string');
+        CRUD::column('created_at')->type('date');
     }
 
     /**
@@ -61,16 +66,17 @@ class ProductsCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(ProductsRequest::class);
-        CRUD::setFromDb(); // set fields from db columns.
 
+        CRUD::setFromDb(); // set fields from db columns.
         CRUD::field('image')
             ->type('upload')
-            ->label('image')
-            ->withFiles()
-            ->validationRules('required|image');
+            ->withFiles([
+                'disk' => 'upload'
+            ]);
         CRUD::field('name')->validationRules('required|min:5');
         CRUD::field('description')->validationRules('required');
         CRUD::field('price')->validationRules('required')->prefix('$');
+        
 
     
         /**
@@ -84,7 +90,16 @@ class ProductsCrudController extends CrudController
      * 
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
+     * 
      */
+    protected function setupDeleteOperation() {
+        CRUD::field('image')
+            ->type('upload')
+            ->withFiles([
+                'disk' => 'upload'
+            ]);
+
+    }
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();

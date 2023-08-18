@@ -68,8 +68,9 @@ class UserCrudController extends CrudController
         CRUD::field('name')->validationRules('required|min:5');
         CRUD::field('email')->validationRules('required|email|unique:users,email');
         CRUD::field('address')->validationRules('nullable|string');
-        CRUD::field('phone')->validationRules('nullable|number');
-        CRUD::field('credit_crad')->validationRules('nullable');
+        CRUD::field('pincode')->validationRules('nullable | numeric');
+        CRUD::field('phone')->validationRules('nullable| numeric');
+        CRUD::field('credit_card')->validationRules('nullable| numeric');
         CRUD::field('password')->validationRules('required');
 
         \App\Models\User::creating(function ($entry) {
@@ -93,8 +94,9 @@ class UserCrudController extends CrudController
         CRUD::field('email')->validationRules('required|email|unique:users,email,'.CRUD::getCurrentEntryId());
         CRUD::field('password')->hint('Type a password to change it.');
         CRUD::field('address')->validationRules('nullable|string');
-        CRUD::field('phone')->validationRules('nullable|number');
-        CRUD::field('credit_crad')->validationRules('nullable');
+        CRUD::field('pincode')->validationRules('nullable | numeric');
+        CRUD::field('phone')->validationRules('nullable');
+        CRUD::field('credit_card')->validationRules('nullable');
         \App\Models\User::updating(function ($entry) {
             if (request('password') == null) {
                 $entry->password = $entry->getOriginal('password');
