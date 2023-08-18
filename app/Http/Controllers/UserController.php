@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\Resources;
-use App\Models\Products;
+use App\Models\User;
 
-class ProductController extends Controller
+class UserController extends Controller
 {
    public function index()  {
 
-    return Resources::collection(Products::all());
+    return Resources::Collection(User::all());
     
    } 
 }
