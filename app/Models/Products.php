@@ -35,15 +35,24 @@ class Products extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    public function images(){
-        return $this->hasMany(ProductImages::class);
-    }
+    public function setImageAttribute($value)
+    {
+        $attribute_name = "image";
+        $disk = "upload";
+        $destination_path = "upload/product";
 
+        return $this->uploadFileToDisk($value, $attribute_name, $disk,  $destination_path);
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function images()
+    {
+        return $this->hasMany(ProductImages::class);
+    }
+
 
     /*
     |--------------------------------------------------------------------------
