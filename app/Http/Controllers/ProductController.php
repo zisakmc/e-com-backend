@@ -7,9 +7,8 @@ use App\Models\Products;
 
 class ProductController extends Controller
 {
-   public function index()  {
-
-    return Resources::collection(Products::all());
-    
-   } 
+    public function index()
+    {
+        return Resources::collection(Products::all());
+    }
 }

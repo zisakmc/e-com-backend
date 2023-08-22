@@ -46,7 +46,7 @@ class ProductsCrudController extends CrudController
          * Columns can be defined using the fluent syntax:
          * - CRUD::column('price')->type('number');
          */
-        CRUD::column('image')->type('image');
+        CRUD::column('image')->type('image')->size('50');
         CRUD::column('name')->type('string');
         CRUD::column('description')->type('string');
         CRUD::column('price')->type('number')->prefix('$');
@@ -69,7 +69,7 @@ class ProductsCrudController extends CrudController
             ->type('upload')
             ->withFiles([
                 'disk' => 'upload'
-            ]);
+            ])->validationRules('image|mimes:jpg,jpeg');
         CRUD::field('name')->validationRules('required|min:4');
         CRUD::field('description')->validationRules('required');
         CRUD::field('price')->validationRules('required')->prefix('$');

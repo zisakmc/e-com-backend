@@ -40,9 +40,9 @@ class Products extends Model
         $attribute_name = "image";
         $disk = "upload";
         $destination_path = "upload/product";
-
         return $this->uploadFileToDisk($value, $attribute_name, $disk,  $destination_path);
     }
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
